@@ -1,38 +1,31 @@
-.App {
-  text-align: center;
+.artistGallery {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.wrapper {
+  width: 1400px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+.bandContainer {
+  flex: 1 1 calc(20% - 100px);
+  padding: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.bandContainer form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+main .wrapper {
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selectArtist {
+  flex: 1 0 60%;
+}
+
+.displayPlaylist {
+  flex: 0 1 40%;
 }

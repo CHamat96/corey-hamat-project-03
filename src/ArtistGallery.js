@@ -1,11 +1,27 @@
+import {useState} from 'react'
 
 function DisplayArtists(props){
+
+    const [artistChoice, setArtistChoice] = useState()
+    // const [artistID, setArtistID] = useState()
+
+    const artistSelect = (event) => {
+      setArtistChoice(event.target.id)
+    }
+
+    const handleArtistChoice = (event) => {
+      event.preventDefault()
+      props.getAlbums(artistChoice)
+    }
+
+
   return (
     <div className="bandContainer">
-      <img src={props.photo} alt={props.name} />      
-      <button value={props.id}>
-        <h3>{props.name}</h3>
-      </button>
+      <form action="" 
+      onSubmit={handleArtistChoice}>
+        <img src={props.photo} alt={props.name} />
+        <button type='submit' id={props.id} onClick={artistSelect} value={artistChoice}> {props.name}</button>
+      </form>      
     </div>
   )
 }

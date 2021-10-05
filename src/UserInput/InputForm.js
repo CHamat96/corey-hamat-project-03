@@ -19,7 +19,10 @@ function UserInput(props){
     })
   }, [])
 
+
+
   return (
+    <>
     <form action="" onSubmit={props.formSubmit}>
       <label htmlFor="genreChoice">Please Select a Music Genre:</label>
         <select 
@@ -35,6 +38,7 @@ function UserInput(props){
         </select>
       <button type="submit">Get Artists!</button>
     </form>
+  </>
   )
 }
 export default UserInput
