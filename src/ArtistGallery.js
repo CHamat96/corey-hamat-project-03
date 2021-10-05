@@ -20,7 +20,6 @@ function DisplayArtists(props){
       <form action="" 
       onSubmit={handleArtistChoice}>
         <img src={props.photo} alt={props.name} />
-        <label htmlFor="artistChoice" sr-only>Select a song by {props.name}</label>
         <button type='submit' id={props.id} onClick={artistSelect} value={artistChoice} name="artistChoice"> {props.name}</button>
       </form>      
     </div>

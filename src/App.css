@@ -8,6 +8,12 @@
   max-width: 90%;
   margin: 0 auto;
 }
+
+header .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .bandContainer {
   flex: 1 1 calc(20% - 100px);
   padding: 25px;
