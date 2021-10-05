@@ -23,22 +23,24 @@ function UserInput(props){
 
   return (
     <>
-    <form action="" onSubmit={props.formSubmit}>
-      <label htmlFor="genreChoice">Please Select a Music Genre:</label>
-        <select 
-        name="genreChoice" 
-        id="genreChoice" 
-        onChange={props.genreInput}
-        value={props.genre}>
-          {genres.map((genre, index) => {
-            return(
-              <option key={index} value={genre.id}>{genre.name}</option>
-            )
-          })}
-        </select>
-      <button type="submit">Get Artists!</button>
-    </form>
-  </>
+      <form action="" onSubmit={props.formSubmit}>
+        <fieldset className="genreChoice">
+          <label htmlFor="genreChoice">Please Select a Music Genre:</label>
+          <select 
+          name="genreChoice" 
+          id="genreChoice" 
+          onChange={props.genreInput}
+          value={props.genre}>
+            {genres.map((genre, index) => {
+              return(
+                <option key={index} value={genre.id}>{genre.name}</option>
+              )
+            })}
+          </select>
+          <button type="submit">Get Artists!</button>
+        </fieldset>
+      </form>
+    </>
   )
 }
 export default UserInput

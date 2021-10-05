@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap");
+
+$mainFont: "Poppins", sans-serif;
+$subFont: "Heebo", sans-serif;
+
+$colorOrange: #ff6230;
+$colorDarkOrange: #dc4c11;
+$colorMidOrange: #feab2e;
+$colorLightOrange: #ffc92a;
+$colorYellow: #f5e447;
+$colorWhite: #ffffff;
+
+@mixin orangeGradient($direction) {
+  background: linear-gradient(
+    $direction,
+    $colorYellow 0%,
+    $colorLightOrange 5%,
+    $colorMidOrange 10%,
+    $colorDarkOrange 15%,
+    $colorWhite 20%
+  );
+}

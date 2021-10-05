@@ -1,0 +1,77 @@
+@import "setup";
+@import "vars";
+@import "typography";
+@import "mediaQueries";
+
+.artistGallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+header {
+  @include orangeGradient(180deg);
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 50px 0;
+    .siteHeading {
+      box-shadow: 15px 15px indigo;
+      margin: 20px;
+      padding: 25px;
+      flex: 0 1 45%;
+    }
+    .genreChoice {
+      border: none;
+      display: block;
+      select {
+        display: block;
+      }
+    }
+  }
+}
+
+main {
+  margin: 0 auto;
+  .wrapper {
+    display: flex;
+  }
+}
+
+.bandContainer {
+  flex: 1 1 calc(20% - 100px);
+  padding: 25px;
+  form {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 15px 15px $colorOrange;
+  }
+  button {
+    background: linear-gradient(90deg, #22efcb 0%, #2980ff 50%, #a125ff 100%);
+    font-weight: 700;
+  }
+}
+
+.selectArtist {
+  flex: 1 0 calc(60% - 25px);
+  margin-right: 25px;
+}
+
+.displayPlaylist {
+  flex: 0 1 40%;
+}
+
+footer {
+  @include orangeGradient(360deg);
+  padding: 25px 0;
+  text-align: center;
+  a {
+    line-height: 2rem;
+    display: block;
+  }
+}
+/* 
+.playlist {
+  list-style: none;
+} */

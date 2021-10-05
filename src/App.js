@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/scss/styles.css';
 import UserInput from './UserInput/InputForm.js';
 import DisplayArtists from './ArtistGallery.js';
 import axios from 'axios';
@@ -105,6 +105,7 @@ function App() {
         <div className="wrapper">
           <div className="siteHeading">
           <h1>The Perfect Personal Playlist Procurement Program</h1>
+          <p>Select your favourite music genre, find an artist or band that you like, then randomly add a song to your own <span>personal playlist</span>!</p>
           </div>
           <UserInput 
           formSubmit={handleFormSubmit}
@@ -134,24 +135,29 @@ function App() {
             {userPlaylist.length > 0 ? (
             <>
               <h2>Your Playlist:</h2>
-              <ul className="playlist">
+              <ol className="playlist">
                 {userPlaylist.map((song) => {
-                  const {title, link, id, artist} = song.data
+                  const {title, link, artist, id} = song.data
                   return (
                     <li key={id}>
                       <a href={link}><span>{title}</span> by {artist.name}</a>
                     </li>
                   )
                 })}
-              </ul>
+              </ol>
             </>
             ) : (
               <>
+                <h2>Select an artist to add a song to your playlist!</h2>
               </>
             )}
           </section>
         </div>
       </main>
+      <footer>
+        <a href="https://developers.deezer.com">Powered by the Deezer API</a>
+        <a href="https://www.junocollege.ca">Created at Juno College of Technology</a>
+      </footer>
     </div>
   );
 }
