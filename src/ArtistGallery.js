@@ -10,7 +10,7 @@ function DisplayArtists(props){
 
     const handleArtistChoice = (event) => {
       event.preventDefault()
-      props.getAlbums(artistChoice)
+      props.getSong(artistChoice)
     }
 
 

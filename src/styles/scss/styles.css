@@ -337,6 +337,12 @@ a {
   color: #ffffff;
 }
 
+footer a,
+footer p {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+}
+
 .artistGallery {
   display: flex;
   flex-wrap: wrap;
@@ -387,8 +393,15 @@ header .userSearch button[type=submit] {
   border-radius: 5px;
   padding: 3px;
 }
+header .userSearch button[type=submit]:hover, header .userSearch button[type=submit]:focus {
+  background: #ffc92a;
+  border: 0.1rem solid #ffc92a;
+}
 header .userSearch button[type=submit]:active {
   background: #dc4c11;
+  border: 0.1rem solid #dc4c11;
+  color: #fff;
+  font-weight: 500;
 }
 header .userSearch input[type=search] {
   width: calc(75% - 15px);
@@ -421,6 +434,12 @@ main .wrapper {
 .bandContainer button {
   background: #2980ff;
 }
+.bandContainer button:focus, .bandContainer button:hover {
+  background: #11a8cc;
+}
+.bandContainer button:active {
+  background: #3a489f;
+}
 
 .displayPlaylist {
   padding: 5px;
@@ -439,7 +458,6 @@ footer {
   text-align: center;
 }
 footer a {
-  line-height: 2rem;
   display: block;
 }
 

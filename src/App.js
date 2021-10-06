@@ -13,6 +13,7 @@ function App() {
   const [genreID, setGenreID] = useState(0)
 
   useEffect(() => {
+    // when page loads, start listening for changes to firebase
     const dbRef = ref(realtime)
     onValue(dbRef, (snapshot) => {
       const realtimeData = snapshot.val()
@@ -41,46 +42,29 @@ function App() {
     })
   }, [])
 
-
-
-  const getAlbums = (artistID) => {
-    axios({
-      url:'https://proxy.hackeryou.com',
-      method:'GET',
-      dataResponse:'json',
-      params:{
-        reqUrl:`http://api.deezer.com/artist/${artistID}/albums`
-      }
-    })
-    .then((response) => {
-      const allAlbums = response.data
-      const randomAlbum = random(allAlbums.data)
-      getSong(randomAlbum)
-    })
-  }
-
+  // Random # function that targets an array param
   const random = (array) => {
     const index = Math.floor(Math.random() * array.length)
     return array[index]
   }
   
-
-  const findSong = async (album) => {
-    const id = album.id
+// Async API call to get selected artist's top 100 songs
+  const findSong = async (id) => {
     const songSearch = await axios({
       url:'https://proxy.hackeryou.com',
       method:'GET',
       dataResponse:'json',
       params:{
-        reqUrl:`http://api.deezer.com/album/${id}/tracks`
+        reqUrl:`http://api.deezer.com/artist/${id}/top?limit=100`,
       }  
     })
     return songSearch
   }
 
-  const getSong = (album) => {
-    const albumInfo = findSong(album)
-    albumInfo
+  // Call tracklist API call, then pick random object from response array & push to dbRef
+  const getSong = (id) => {
+    const tracklist = findSong(id)
+    tracklist
     .then((response) => {
       const tracklist = response.data
       const pickSong = random(tracklist.data)
@@ -89,6 +73,7 @@ function App() {
     })
   }
 
+  // When user clicks the 'remove' button, target the selected object's key # & remove from firebase
   const handleRemoveSong = (event) => {
     const songKey = event.target.value
     const songRef = ref(realtime, songKey)
@@ -123,7 +108,7 @@ function App() {
                 name={artist.name}
                 id={artist.id}
                 photo={artist.picture_medium}
-                getAlbums={getAlbums}
+                getSong={getSong}
                 />
               )
             })}
@@ -157,6 +142,7 @@ function App() {
         </div>
       </main>
       <footer>
+        <p>©2021 Corey Hamat</p>
         <a href="https://developers.deezer.com">Powered by the Deezer API</a>
         <a href="https://www.junocollege.ca">Created at Juno College of Technology</a>
       </footer>

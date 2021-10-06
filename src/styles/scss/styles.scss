@@ -49,8 +49,16 @@ header {
       border: $colorMidOrange 0.1rem solid;
       border-radius: 5px;
       padding: 3px;
+      &:hover,
+      &:focus {
+        background: $colorLightOrange;
+        border: 0.1rem solid $colorLightOrange;
+      }
       &:active {
         background: $colorDarkOrange;
+        border: 0.1rem solid $colorDarkOrange;
+        color: #fff;
+        font-weight: 500;
       }
     }
     input[type="search"] {
@@ -87,6 +95,13 @@ main {
   // }
   button {
     background: #2980ff;
+    &:focus,
+    &:hover {
+      background: #11a8cc;
+    }
+    &:active {
+      background: #3a489f;
+    }
   }
 }
 
@@ -104,7 +119,6 @@ footer {
   padding: 25px 0;
   text-align: center;
   a {
-    line-height: 2rem;
     display: block;
   }
 }
