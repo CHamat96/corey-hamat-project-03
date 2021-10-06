@@ -4,7 +4,7 @@ import DisplayArtists from './ArtistGallery.js';
 import axios from 'axios';
 import {useState, useEffect} from 'react'
 import realtime from './firebase.js';
-import {ref, onValue, push} from 'firebase/database'
+import {ref, onValue, push, remove} from 'firebase/database'
 
 function App() {
   const [genreID, setGenreID] = useState(0)
@@ -99,6 +99,12 @@ function App() {
     })
   }
 
+  const handleRemoveSong = (event) => {
+    const songKey = event.target.value
+    const songRef = ref(realtime, songKey)
+    remove(songRef)
+  }
+
   return (
     <div className="App">
       <header>
@@ -132,15 +138,20 @@ function App() {
             </div>
           </section>
           <section className="displayPlaylist">
+            {console.log(userPlaylist)}
             {userPlaylist.length > 0 ? (
             <>
               <h2>Your Playlist:</h2>
               <ol className="playlist">
                 {userPlaylist.map((song) => {
+                  const {key} = song
                   const {title, link, artist, id} = song.data
                   return (
                     <li key={id}>
                       <a href={link}><span>{title}</span> by {artist.name}</a>
+                      <button 
+                      value={key}
+                      onClick={handleRemoveSong}>delete song</button>
                     </li>
                   )
                 })}

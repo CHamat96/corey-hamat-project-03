@@ -71,7 +71,32 @@ footer {
     display: block;
   }
 }
-/* 
+
 .playlist {
-  list-style: none;
-} */
+  li {
+    padding: 5px 0;
+  }
+  li:hover a {
+    color: #2980ff;
+  }
+  a {
+    display: block;
+  }
+  button {
+    font-size: 0.75rem;
+    background: #ffffff00;
+    color: #b12525;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: #b12525 solid 0.1rem;
+    border-radius: 5px;
+    padding: 2px;
+  }
+  button:hover {
+    background: #b12525;
+    color: #fff;
+  }
+  span {
+    font-weight: 700;
+  }
+}

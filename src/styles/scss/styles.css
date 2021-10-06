@@ -413,7 +413,29 @@ footer a {
   display: block;
 }
 
-/* 
-.playlist {
-  list-style: none;
-} *//*# sourceMappingURL=styles.css.map */
+.playlist li {
+  padding: 5px 0;
+}
+.playlist li:hover a {
+  color: #2980ff;
+}
+.playlist a {
+  display: block;
+}
+.playlist button {
+  font-size: 0.75rem;
+  background: #ffffff00;
+  color: #b12525;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: #b12525 solid 0.1rem;
+  border-radius: 5px;
+  padding: 2px;
+}
+.playlist button:hover {
+  background: #b12525;
+  color: #fff;
+}
+.playlist span {
+  font-weight: 700;
+}/*# sourceMappingURL=styles.css.map */
