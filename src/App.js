@@ -120,7 +120,6 @@ function App() {
               <h2>The 'Perfect' Playlist:</h2>
               <ol className="playlist">
                 {userPlaylist.map((song) => {
-                  console.log(song)
                   const {key} = song
                   const {title, link, artist, id, album} = song.data
                   return (
@@ -150,7 +149,7 @@ function App() {
       <footer>
         <p>©2021 Corey Hamat</p>
         <a href="https://developers.deezer.com">Powered by the Deezer API</a>
-        <a href="https://www.junocollege.ca">Created at Juno College of Technology</a>
+        <a href="https://www.junocollege.com">Created at Juno College of Technology</a>
       </footer>
     </div>
   );

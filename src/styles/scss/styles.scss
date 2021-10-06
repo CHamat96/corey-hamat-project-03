@@ -133,12 +133,17 @@ footer {
     align-items: center;
   }
   img {
+    flex: 0 0 auto;
     width: 100px;
     margin-right: 25px;
     object-fit: cover;
   }
+  .songInfo {
+    flex: 2 1 auto;
+  }
   a {
     display: block;
+    padding: 5px 0;
     &:hover,
     &:focus {
       color: #2980ff;

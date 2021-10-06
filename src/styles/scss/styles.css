@@ -472,13 +472,18 @@ footer a {
   align-items: center;
 }
 .playlist img {
+  flex: 0 0 auto;
   width: 100px;
   margin-right: 25px;
   -o-object-fit: cover;
      object-fit: cover;
 }
+.playlist .songInfo {
+  flex: 2 1 auto;
+}
 .playlist a {
   display: block;
+  padding: 5px 0;
 }
 .playlist a:hover, .playlist a:focus {
   color: #2980ff;
