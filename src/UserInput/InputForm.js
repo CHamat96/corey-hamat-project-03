@@ -4,7 +4,7 @@ import axios from 'axios';
 function UserInput(props){
   const [genres, setGenres] = useState([]);
 
-  useEffect(() => {
+  useEffect((props) => {
     axios({
       url:'https://proxy.hackeryou.com/',
       method:'GET',
