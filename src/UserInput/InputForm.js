@@ -4,7 +4,7 @@ import axios from 'axios';
 function UserInput(props){
   const [genres, setGenres] = useState([]);
 
-  useEffect((props) => {
+  useEffect(() => {
     axios({
       url:'https://proxy.hackeryou.com/',
       method:'GET',
@@ -16,19 +16,6 @@ function UserInput(props){
     .then((response) => {
         const results = response.data
         setGenres(results.data)
-    })
-
-    axios({
-      url:'https://proxy.hackeryou.com/',
-      method:'GET',
-      dataResponse:'json',
-      params: {
-        reqUrl:'http://api.deezer.com/chart/0/artists'
-      }
-    })
-    .then((response) => {
-        const results = response.data
-        props.setBandResults(results.data)
     })
   }, [])
 
