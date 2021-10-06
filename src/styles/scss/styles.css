@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap");
 html {
   line-height: 1.15;
@@ -272,21 +272,27 @@ html {
   margin: 0 auto;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 html {
   font-size: 125%;
 }
 
 h1,
 h2,
-h3 {
+h3,
+label,
+button,
+select {
   font-family: "Poppins", sans-serif;
 }
 
 p,
-a,
-button,
-label,
-option {
+a {
   font-family: "Heebo", sans-serif;
 }
 
@@ -299,8 +305,13 @@ h2 {
 }
 
 label {
-  font-weight: 300;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   font-size: 1.1rem;
+}
+
+select {
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -311,7 +322,13 @@ a {
 
 .bandContainer button {
   font-size: 1.2rem;
+  font-weight: 600;
   padding: 5px;
+  border: none;
+}
+.bandContainer button:active {
+  background: indigo;
+  color: #ffffff;
 }
 
 .playlist li:hover span button,
@@ -320,69 +337,81 @@ a {
   color: #ffffff;
 }
 
-@media (max-width: 700px) {
-  body {
-    font-size: 90%;
-  }
-
-  header .wrapper {
-    align-items: center;
-    flex-direction: column;
-  }
-  header .wrapper .siteHeading {
-    flex: auto;
-  }
-  header form {
-    align-self: center;
-  }
-
-  main .wrapper {
-    flex-direction: column-reverse;
-  }
-
-  .bandContainer form {
-    box-shadow: none;
-  }
-}
 .artistGallery {
   display: flex;
   flex-wrap: wrap;
 }
 
+fieldset {
+  border: none;
+}
+
 header {
+  min-height: 40vh;
   background: linear-gradient(180deg, #f5e447 0%, #ffc92a 5%, #feab2e 10%, #dc4c11 15%, #ffffff 20%);
 }
 header .wrapper {
+  padding-top: 100px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  padding: 50px 0;
 }
-header .wrapper .siteHeading {
+header .siteHeading {
   box-shadow: 15px 15px indigo;
   margin: 20px;
   padding: 25px;
   flex: 0 1 45%;
 }
-header .wrapper .genreChoice {
-  border: none;
-  display: block;
+header .userSearch {
+  padding: 25px;
+  border: #2980ff solid 0.2rem;
 }
-header .wrapper .genreChoice select {
+header .userSearch label {
   display: block;
+  padding: 5px;
+}
+header .userSearch select,
+header .userSearch input[type=search] {
+  margin-right: 15px;
+}
+header .userSearch select {
+  font-family: "Poppins", sans-serif;
+  background: #ffffff00;
+  border: none;
+  padding: 2px;
+}
+header .userSearch button[type=submit] {
+  background: #feab2e;
+  border: #feab2e 0.1rem solid;
+  border-radius: 5px;
+  padding: 3px;
+}
+header .userSearch button[type=submit]:active {
+  background: #dc4c11;
+}
+header .userSearch input[type=search] {
+  width: calc(75% - 15px);
 }
 
 main {
+  padding: 25px 0;
+  min-height: 40vh;
   margin: 0 auto;
 }
 main .wrapper {
   display: flex;
 }
 
+.selectArtist {
+  flex: 1 1 calc(85% - 25px);
+  margin-right: 25px;
+}
+
 .bandContainer {
-  flex: 1 1 calc(20% - 100px);
+  flex: 0 0 25%;
   padding: 25px;
+  width: calc(100% - 25px / 2);
 }
 .bandContainer form {
   display: flex;
@@ -391,19 +420,20 @@ main .wrapper {
 }
 .bandContainer button {
   background: linear-gradient(90deg, #22efcb 0%, #2980ff 50%, #a125ff 100%);
-  font-weight: 700;
-}
-
-.selectArtist {
-  flex: 1 0 calc(60% - 25px);
-  margin-right: 25px;
 }
 
 .displayPlaylist {
+  padding: 5px;
   flex: 0 1 40%;
+  border: solid 0.25rem;
+  border-right: none;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 footer {
+  min-height: 10vh;
   background: linear-gradient(360deg, #f5e447 0%, #ffc92a 5%, #feab2e 10%, #dc4c11 15%, #ffffff 20%);
   padding: 25px 0;
   text-align: center;
@@ -416,11 +446,11 @@ footer a {
 .playlist li {
   padding: 5px 0;
 }
-.playlist li:hover a {
-  color: #2980ff;
-}
 .playlist a {
   display: block;
+}
+.playlist a:hover, .playlist a:focus {
+  color: #2980ff;
 }
 .playlist button {
   font-size: 0.75rem;
@@ -438,4 +468,85 @@ footer a {
 }
 .playlist span {
   font-weight: 700;
+}
+
+@media (max-width: 1000px) {
+  .bandContainer {
+    flex: 1 1 33%;
+  }
+}
+@media (max-width: 750px) {
+  header .wrapper {
+    align-items: center;
+    flex-direction: column;
+  }
+  header .wrapper .siteHeading {
+    flex: auto;
+  }
+  header form {
+    align-self: center;
+  }
+
+  main .wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .bandContainer {
+    flex: 1 1 50%;
+  }
+}
+@media (max-width: 500px) {
+  .userSearch {
+    align-self: flex-start;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  header {
+    padding-top: 25px;
+  }
+  header .siteHeading {
+    flex: auto;
+    box-shadow: none;
+  }
+  header .userSearch select,
+header .userSearch input[type=search] {
+    width: 100%;
+  }
+  header .userSearch button {
+    margin-top: 5px;
+  }
+
+  main .bandContainer {
+    flex: auto;
+  }
+}
+@media (max-width: 350px) {
+  label {
+    font-size: 80%;
+  }
+
+  header .siteHeading {
+    padding: 0;
+  }
+  header .userSearch button[type=submit] {
+    font-size: 90%;
+  }
+
+  main .selectArtist {
+    margin-right: 0;
+  }
+  main .bandContainer {
+    padding: 15px 0;
+  }
+  main .bandContainer form {
+    box-shadow: none;
+    width: 100%;
+  }
 }/*# sourceMappingURL=styles.css.map */

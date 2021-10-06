@@ -1,7 +1,10 @@
-@media (max-width: 700px) {
-  body {
-    font-size: 90%;
+@media (max-width: 1000px) {
+  .bandContainer {
+    flex: 1 1 33%;
   }
+}
+
+@media (max-width: 750px) {
   header {
     .wrapper {
       align-items: center;
@@ -17,7 +20,68 @@
   main .wrapper {
     flex-direction: column-reverse;
   }
-  .bandContainer form {
-    box-shadow: none;
+  .bandContainer {
+    flex: 1 1 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .userSearch {
+    align-self: flex-start;
+  }
+  h1 {
+    font-size: 1.9rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  header {
+    padding-top: 25px;
+    .siteHeading {
+      flex: auto;
+      box-shadow: none;
+    }
+    .userSearch {
+      select,
+      input[type="search"] {
+        width: 100%;
+      }
+      button {
+        margin-top: 5px;
+      }
+    }
+  }
+  main {
+    .bandContainer {
+      flex: auto;
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  label {
+    font-size: 80%;
+  }
+  header {
+    .siteHeading {
+      padding: 0;
+    }
+    .userSearch {
+      button[type="submit"] {
+        font-size: 90%;
+      }
+    }
+  }
+  main {
+    .selectArtist {
+      margin-right: 0;
+    }
+    .bandContainer {
+      padding: 15px 0;
+      form {
+        box-shadow: none;
+        width: 100%;
+      }
+    }
   }
 }

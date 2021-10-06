@@ -7,10 +7,11 @@ import realtime from './firebase.js';
 import {ref, onValue, push, remove} from 'firebase/database'
 
 function App() {
-  const [genreID, setGenreID] = useState(0)
   const [bands, setBands] = useState([])
   const [userPlaylist, setUserPlaylist] = useState([])
-  
+  const [bandQuery, setBandQuery] = useState('')
+  const [genreID, setGenreID] = useState(0)
+
   useEffect(() => {
     const dbRef = ref(realtime)
     onValue(dbRef, (snapshot) => {
@@ -28,29 +29,6 @@ function App() {
   }, [])
 
 
-  const genreChange = (event) => {
-    setGenreID(event.target.value)
-  }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault()
-    displayArtists(genreID)
-  }
-
-  const displayArtists = (id) => {
-    axios({
-      url:`https://proxy.hackeryou.com`,
-      method:'GET',
-      dataResponse:'json',
-      params:{
-        reqUrl:`http://api.deezer.com/genre/${id}/artists`
-      }
-    })
-    .then((response) => {
-      const artists = response.data
-      setBands(artists.data)
-    })
-  }
 
   const getAlbums = (artistID) => {
     axios({
@@ -93,7 +71,6 @@ function App() {
     .then((response) => {
       const tracklist = response.data
       const pickSong = random(tracklist.data)
-      console.log(pickSong)
       const dbRef = ref(realtime)
       push(dbRef, pickSong)
     })
@@ -110,13 +87,15 @@ function App() {
       <header>
         <div className="wrapper">
           <div className="siteHeading">
-          <h1>The Perfect Personal Playlist Procurement Program</h1>
-          <p>Select your favourite music genre, find an artist or band that you like, then randomly add a song to your own <span>personal playlist</span>!</p>
+          <h1>The Perfect Playlist Procurement Program</h1>
+          <p>Select your favourite music genre & select an artist or band that you like, or search for that band yourself, then randomly add a song to a global Playlist, created by music-lovers across the internet!</p>
           </div>
           <UserInput 
-          formSubmit={handleFormSubmit}
-          genre={genreID}
-          genreInput={genreChange}
+          genreID={genreID}
+          setGenreID={setGenreID}
+          bandInput={bandQuery}
+          setBandInput={setBandQuery}
+          setBandResults={setBands}
           />
         </div>
       </header>
@@ -130,7 +109,7 @@ function App() {
                 key={index}
                 name={artist.name}
                 id={artist.id}
-                photo={artist.picture}
+                photo={artist.picture_medium}
                 getAlbums={getAlbums}
                 />
               )
@@ -138,10 +117,9 @@ function App() {
             </div>
           </section>
           <section className="displayPlaylist">
-            {console.log(userPlaylist)}
             {userPlaylist.length > 0 ? (
             <>
-              <h2>Your Playlist:</h2>
+              <h2>The 'Perfect' Playlist:</h2>
               <ol className="playlist">
                 {userPlaylist.map((song) => {
                   const {key} = song
@@ -159,7 +137,7 @@ function App() {
             </>
             ) : (
               <>
-                <h2>Select an artist to add a song to your playlist!</h2>
+                <h2>Select an artist to add a song to the playlist!</h2>
               </>
             )}
           </section>

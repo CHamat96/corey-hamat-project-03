@@ -3,7 +3,6 @@ import {useState} from 'react'
 function DisplayArtists(props){
 
     const [artistChoice, setArtistChoice] = useState()
-    // const [artistID, setArtistID] = useState()
 
     const artistSelect = (event) => {
       setArtistChoice(event.target.id)
