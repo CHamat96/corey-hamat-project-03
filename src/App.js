@@ -26,6 +26,19 @@ function App() {
       }
       setUserPlaylist(playlist)
     })
+
+    axios({
+      url:'https://proxy.hackeryou.com/',
+      method:'GET',
+      dataResponse:'json',
+      params: {
+        reqUrl:'http://api.deezer.com/chart/0/artists'
+      }
+    })
+    .then((response) => {
+        const results = response.data
+        setBands(results.data)
+    })
   }, [])
 
 
