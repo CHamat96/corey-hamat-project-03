@@ -461,8 +461,21 @@ footer a {
   display: block;
 }
 
+.playlist {
+  list-style: none;
+}
 .playlist li {
   padding: 5px 0;
+}
+.playlist .songContainer {
+  display: flex;
+  align-items: center;
+}
+.playlist img {
+  width: 100px;
+  margin-right: 25px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .playlist a {
   display: block;

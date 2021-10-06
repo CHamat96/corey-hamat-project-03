@@ -124,8 +124,18 @@ footer {
 }
 
 .playlist {
+  list-style: none;
   li {
     padding: 5px 0;
+  }
+  .songContainer {
+    display: flex;
+    align-items: center;
+  }
+  img {
+    width: 100px;
+    margin-right: 25px;
+    object-fit: cover;
   }
   a {
     display: block;

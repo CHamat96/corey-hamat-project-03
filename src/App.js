@@ -120,14 +120,20 @@ function App() {
               <h2>The 'Perfect' Playlist:</h2>
               <ol className="playlist">
                 {userPlaylist.map((song) => {
+                  console.log(song)
                   const {key} = song
-                  const {title, link, artist, id} = song.data
+                  const {title, link, artist, id, album} = song.data
                   return (
                     <li key={id}>
-                      <a href={link}><span>{title}</span> by {artist.name}</a>
-                      <button 
-                      value={key}
-                      onClick={handleRemoveSong}>delete song</button>
+                      <div className="songContainer">
+                        <img src={album.cover} alt={album.title} />
+                        <div className="songInfo">
+                          <a href={link}><span>{title}</span> by {artist.name}</a>
+                          <button 
+                          value={key}
+                          onClick={handleRemoveSong}>delete song</button>
+                        </div>
+                      </div>
                     </li>
                   )
                 })}
