@@ -15,6 +15,3 @@ const app = initializeApp(config)
 const realtime = getDatabase(app)
 
 export default realtime
-
-
-
