@@ -1,18 +1,39 @@
+// stylesheet import
 import './styles/scss/styles.css';
-import UserInput from './UserInput/InputForm.js';
-import DisplayArtists from './ArtistGallery.js';
+
+// component import
+import UserInput from './components/InputForm.js';
+import DisplayArtists from './components/ArtistGallery.js';
+import Playlist from './components/Playlist.js'
+
+// util import
+import realtime from './utils/firebase.js';
+
+// package import
 import axios from 'axios';
 import {useState, useEffect} from 'react'
-import realtime from './firebase.js';
 import {ref, onValue, push, remove} from 'firebase/database'
 
 function App() {
+  // useState declarations
   const [bands, setBands] = useState([])
   const [userPlaylist, setUserPlaylist] = useState([])
-  const [bandQuery, setBandQuery] = useState('')
-  const [genreID, setGenreID] = useState(0)
+  const [initSearch, setInitSearch] = useState(true)
 
   useEffect(() => {
+    
+    axios({
+      url:'https://proxy.hackeryou.com/',
+      method:'GET',
+      dataResponse:'json',
+      params: {
+        reqUrl:'http://api.deezer.com/chart/0/artists'
+      }
+    })
+    .then((response) => {
+        const results = response.data
+        setBands(results.data)
+    })
     // when page loads, start listening for changes to firebase
     const dbRef = ref(realtime)
     onValue(dbRef, (snapshot) => {
@@ -27,26 +48,43 @@ function App() {
       }
       setUserPlaylist(playlist)
     })
+  }, [])
 
+  
+
+  // Genre-Artist API request
+  const displayBandsGenre = (id) => {
     axios({
-      url:'https://proxy.hackeryou.com/',
+      url:`https://proxy.hackeryou.com`,
       method:'GET',
       dataResponse:'json',
-      params: {
-        reqUrl:'http://api.deezer.com/chart/0/artists'
+      params:{
+        reqUrl:`http://api.deezer.com/genre/${id}/artists`
       }
     })
     .then((response) => {
+      const artists = response.data
+      setBands(artists.data)
+    })
+  }
+
+
+    // API call, results are logged in same 'results' state as the results of the genre search
+    const displayBandsQuery = (query) => {
+      axios({
+        url:'https://proxy.hackeryou.com',
+        method:'GET',
+        dataResponse:'json',
+        params:{
+          reqUrl:`http://api.deezer.com/search/artist?q=${query}`
+        },
+      })
+      .then((response) => {
         const results = response.data
         setBands(results.data)
-    })
-  }, [])
+      })
+    }
 
-  // Random # function that targets an array param
-  const random = (array) => {
-    const index = Math.floor(Math.random() * array.length)
-    return array[index]
-  }
   
 // Async API call to get selected artist's top 100 songs
   const findSong = async (id) => {
@@ -64,6 +102,7 @@ function App() {
   // Call tracklist API call, then pick random object from response array & push to dbRef
   const getSong = (id) => {
     const tracklist = findSong(id)
+    console.log(tracklist)
     tracklist
     .then((response) => {
       const tracklist = response.data
@@ -73,11 +112,22 @@ function App() {
     })
   }
 
+    // Random # function that targets an array param
+    const random = (array) => {
+      const index = Math.floor(Math.random() * array.length)
+      return array[index]
+    }
+
   // When user clicks the 'remove' button, target the selected object's key # & remove from firebase
   const handleRemoveSong = (event) => {
     const songKey = event.target.value
     const songRef = ref(realtime, songKey)
     remove(songRef)
+  }
+
+  const handleInitSearch = () => {
+    setInitSearch(!initSearch)
+    console.log(initSearch)
   }
 
   return (
@@ -89,11 +139,9 @@ function App() {
           <p>Select your favourite music genre & select an artist or band that you like, or search for that band yourself, then randomly add a song to a global Playlist, created by music-lovers across the internet!</p>
           </div>
           <UserInput 
-          genreID={genreID}
-          setGenreID={setGenreID}
-          bandInput={bandQuery}
-          setBandInput={setBandQuery}
-          setBandResults={setBands}
+          displayBandsGenre={displayBandsGenre}
+          displayBandsQuery={displayBandsQuery}
+          handleInitSubmit={handleInitSearch}
           />
         </div>
       </header>
@@ -101,49 +149,27 @@ function App() {
         <div className="wrapper">
           <section className="selectArtist">
             <div className="artistGallery">
-            {bands.map((artist, index) => {
-              return (
-                <DisplayArtists
-                key={index}
-                name={artist.name}
-                id={artist.id}
-                photo={artist.picture_medium}
-                getSong={getSong}
-                />
+            {initSearch === true || bands.length !== 0 ?
+              bands.map((artist, index) => {
+                return (
+                  <DisplayArtists
+                  key={index}
+                  name={artist.name}
+                  id={artist.id}
+                  photo={artist.picture_medium}
+                  getSong={getSong}
+                  />
+                )
+              }) :
+              (
+                <h3>Sorry! I could not find any artists! Try again?</h3>
               )
-            })}
+            }
             </div>
           </section>
-          <section className="displayPlaylist">
-            {userPlaylist.length > 0 ? (
-            <>
-              <h2>The 'Perfect' Playlist:</h2>
-              <ol className="playlist">
-                {userPlaylist.map((song) => {
-                  const {key} = song
-                  const {title, link, artist, id, album} = song.data
-                  return (
-                    <li key={id}>
-                      <div className="songContainer">
-                        <img src={album.cover} alt={album.title} />
-                        <div className="songInfo">
-                          <a href={link}><span>{title}</span> by {artist.name}</a>
-                          <button 
-                          value={key}
-                          onClick={handleRemoveSong}>delete song</button>
-                        </div>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ol>
-            </>
-            ) : (
-              <>
-                <h2>Select an artist to add a song to the playlist!</h2>
-              </>
-            )}
-          </section>
+          <Playlist 
+          userPlaylist={userPlaylist}
+          deleteSong={handleRemoveSong}/>
         </div>
       </main>
       <footer>
