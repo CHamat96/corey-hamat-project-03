@@ -10,19 +10,17 @@ function UserInput(props){
   const [genreID, handleGenreChange] = useInputValue(0)
 
   // deconstruct props
-  const {displayBandsGenre, displayBandsQuery, handleInitSubmit} = props
+  const {displayBandsGenre, displayBandsQuery} = props
 
     // When user submits form, use the selected genreID in API call to display artists that fit the genre
     const genreSubmit = (event) => {
       event.preventDefault()
-      handleInitSubmit();
       displayBandsGenre(genreID)
     }
   
     // When user submits second 'search' form, use 'bandInput' prop/bandQuery component to make another API call to fetch artists that match the user's query 
     const bandSubmit = (event) => {
       event.preventDefault();
-      handleInitSubmit();
       displayBandsQuery(bandQuery)
     }
   

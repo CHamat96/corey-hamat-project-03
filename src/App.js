@@ -16,12 +16,10 @@ import {ref, onValue, push, remove} from 'firebase/database'
 
 function App() {
   // useState declarations
-  const [bands, setBands] = useState([])
+  const [bands, setBands] = useState(['empty'])
   const [userPlaylist, setUserPlaylist] = useState([])
-  const [initSearch, setInitSearch] = useState(true)
 
   useEffect(() => {
-    
     axios({
       url:'https://proxy.hackeryou.com/',
       method:'GET',
@@ -48,8 +46,7 @@ function App() {
       }
       setUserPlaylist(playlist)
     })
-  }, [])
-
+  }, []) 
   
 
   // Genre-Artist API request
@@ -125,11 +122,6 @@ function App() {
     remove(songRef)
   }
 
-  const handleInitSearch = () => {
-    setInitSearch(!initSearch)
-    console.log(initSearch)
-  }
-
   return (
     <div className="App">
       <header>
@@ -141,7 +133,6 @@ function App() {
           <UserInput 
           displayBandsGenre={displayBandsGenre}
           displayBandsQuery={displayBandsQuery}
-          handleInitSubmit={handleInitSearch}
           />
         </div>
       </header>
@@ -149,7 +140,7 @@ function App() {
         <div className="wrapper">
           <section className="selectArtist">
             <div className="artistGallery">
-            {initSearch === true || bands.length !== 0 ?
+            {bands.length !== 0 ?
               bands.map((artist, index) => {
                 return (
                   <DisplayArtists
@@ -160,7 +151,7 @@ function App() {
                   getSong={getSong}
                   />
                 )
-              }) :
+              }):
               (
                 <h3>Sorry! I could not find any artists! Try again?</h3>
               )
